@@ -18,7 +18,15 @@
         <td>{{$student->lastname}}</td>
         <td>{{$student->email}}</td>
         <td>{{$student->registration_number}}</td>
-        <td><a href="{{ route('students.show', ['student' => $student->id ]) }}" class="btn btn-info">Show details</a></td>
+        <td>
+            <a href="{{ route('students.show', ['student' => $student->id ]) }}" class="btn btn-info">Show details</a>
+            <a href="{{ route('students.edit', ['student' => $student->id ]) }}" class="btn btn-warning" style="color:white;">Edit</a>
+            <form action="{{ route('students.destroy', ['student' => $student->id]) }}" method="post" style="display:inline-block;">
+                @method('DELETE')
+                @csrf
+                <button type="submit" name="button" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
       </tr>
       @endforeach
     </table>

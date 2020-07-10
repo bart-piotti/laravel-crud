@@ -36,6 +36,12 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'     => 'required',
+            'lastname' => 'required',
+            'email'    => 'email',
+            'registration_number' => 'required|digits:8'
+        ]);
         $data = $request->all();
         $new_student = new Student();
         $new_student->fill($data);
@@ -63,7 +69,8 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::find($id);
+        return view('students.edit', ['data' => $student]);
     }
 
     /**
@@ -75,7 +82,16 @@ class StudentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'     => 'required',
+            'lastname' => 'required',
+            'email'    => 'email',
+            'registration_number' => 'required|digits:8'
+        ]);
+        $form_answ = $request->all();
+        $curr_student = Student::find($id);
+        $curr_student->update($form_answ);
+        return redirect()->route('students.index');
     }
 
     /**
@@ -84,8 +100,9 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student) //dependency injection
     {
-        //
+        $student->delete();
+        return redirect()->route('students.index');
     }
 }

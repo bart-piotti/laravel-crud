@@ -135,6 +135,18 @@ return [
         ],
     ],
 
+    'custom' => [
+        'email' => [
+            'required' => 'We need to know your e-mail address!',
+            'email' => 'Use a valid email address'
+        ],
+        'lastname' => [
+            'required' => 'The surname field is required'
+        ],
+        'registration_number' => [
+            'digits' => 'Insert a valid registration number'
+        ]
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
